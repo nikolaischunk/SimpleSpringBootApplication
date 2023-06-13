@@ -1,4 +1,4 @@
-package com.example.simplespringapp.inventory;
+package dev.schunk.simplespringapp.inventory;
 
 import org.springframework.data.repository.CrudRepository;
 

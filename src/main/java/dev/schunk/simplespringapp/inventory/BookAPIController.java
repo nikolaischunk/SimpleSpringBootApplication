@@ -1,4 +1,4 @@
-package com.example.simplespringapp.inventory;
+package dev.schunk.simplespringapp.inventory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

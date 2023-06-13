@@ -1,4 +1,4 @@
-package com.example.simplespringapp.inventory;
+package dev.schunk.simplespringapp.inventory;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

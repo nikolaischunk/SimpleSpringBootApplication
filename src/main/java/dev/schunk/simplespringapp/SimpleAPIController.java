@@ -1,4 +1,4 @@
-package com.example.simplespringapp;
+package dev.schunk.simplespringapp;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

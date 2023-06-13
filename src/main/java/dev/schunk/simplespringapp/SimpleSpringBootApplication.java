@@ -1,4 +1,4 @@
-package com.example.simplespringapp;
+package dev.schunk.simplespringapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
