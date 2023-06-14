@@ -1,10 +1,7 @@
 package dev.schunk.simplespringapp.inventory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class BookAPIController {
@@ -13,7 +10,11 @@ public class BookAPIController {
     private BookRepository bookRepository;
 
     @PostMapping("api/books/add")
-    public String addBook(String title, double price) {
+    public String addBook(@RequestParam String title, @RequestParam(required = false) Double price) {
+        if (title == null || title.isEmpty()) {
+            return "Title is required";
+        }
+        if (price == null) price = 0.0;
         Book book = new Book();
         book.setTitle(title);
         book.setPrice(price);
@@ -29,5 +30,21 @@ public class BookAPIController {
     @GetMapping("api/books/find/{id}")
     public Book findBook(@PathVariable Integer id) {
         return bookRepository.findBookById(id);
+    }
+
+    @GetMapping("api/books/find")
+    public Book findBookByTitle(@RequestParam String title) {
+        return bookRepository.findBookByTitleContainsIgnoreCase(title);
+    }
+
+    @DeleteMapping("api/books/delete/{id}")
+    public String deleteBook(@PathVariable Integer id) {
+        bookRepository.deleteById(id);
+        return "Book deleted";
+    }
+
+    @GetMapping("/hello")
+    public String sayHello(@RequestParam(value = "name", defaultValue = "Nikolai") String name) {
+        return String.format("Hello %s!", name);
     }
 }
