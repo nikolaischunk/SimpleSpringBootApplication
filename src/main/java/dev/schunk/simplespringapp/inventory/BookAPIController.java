@@ -1,15 +1,20 @@
 package dev.schunk.simplespringapp.inventory;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/books/")
 public class BookAPIController {
 
     @Autowired
     private BookRepository bookRepository;
 
-    @PostMapping("api/books/add")
+    @PostMapping(value = "add")
     public String addBook(@RequestParam String title, @RequestParam(required = false) Double price) {
         if (title == null || title.isEmpty()) {
             return "Title is required";
@@ -22,22 +27,25 @@ public class BookAPIController {
         return "Book added";
     }
 
-    @GetMapping("api/books/list")
-    public Iterable<Book> listBooks() {
-        return bookRepository.findAll();
+    @GetMapping(value = "list", produces = MediaType.APPLICATION_JSON_VALUE)
+    @JsonProperty
+    public ResponseEntity<Iterable<Book>> listBooks() {
+        return ResponseEntity.ok(bookRepository.findAll());
     }
 
-    @GetMapping("api/books/find/{id}")
+    @GetMapping(value = "find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public Book findBook(@PathVariable Integer id) {
         return bookRepository.findBookById(id);
     }
 
-    @GetMapping("api/books/find")
+    @GetMapping(value = "find", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public Book findBookByTitle(@RequestParam String title) {
         return bookRepository.findBookByTitleContainsIgnoreCase(title);
     }
 
-    @DeleteMapping("api/books/delete/{id}")
+    @DeleteMapping("delete/{id}")
     public String deleteBook(@PathVariable Integer id) {
         bookRepository.deleteById(id);
         return "Book deleted";
