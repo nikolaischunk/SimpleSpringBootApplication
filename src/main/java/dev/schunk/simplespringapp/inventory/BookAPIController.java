@@ -35,14 +35,14 @@ public class BookAPIController {
 
     @GetMapping(value = "find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Book findBook(@PathVariable Integer id) {
-        return bookRepository.findBookById(id);
+    public ResponseEntity<Book> findBook(@PathVariable Integer id) {
+        return ResponseEntity.ok(bookRepository.findBookById(id));
     }
 
     @GetMapping(value = "find", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Book findBookByTitle(@RequestParam String title) {
-        return bookRepository.findBookByTitleContainsIgnoreCase(title);
+    public ResponseEntity<Iterable<Book>> findBookByTitle(@RequestParam String title) {
+        return ResponseEntity.ok(bookRepository.findBookByTitleContainsIgnoreCase(title));
     }
 
     @DeleteMapping("delete/{id}")

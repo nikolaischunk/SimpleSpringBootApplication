@@ -2,8 +2,10 @@ package dev.schunk.simplespringapp.inventory;
 
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 public interface BookRepository extends CrudRepository<Book, Integer> {
     Book findBookById(Integer id);
 
-    Book findBookByTitleContainsIgnoreCase(String title);
+    List<Book> findBookByTitleContainsIgnoreCase(String title);
 }
