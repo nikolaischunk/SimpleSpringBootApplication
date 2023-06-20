@@ -42,9 +42,4 @@ public class BookAPIController {
         bookRepository.deleteById(id);
         return "Book deleted";
     }
-
-    @GetMapping("/hello")
-    public String sayHello(@RequestParam(value = "name", defaultValue = "Nikolai") String name) {
-        return String.format("Hello %s!", name);
-    }
 }
